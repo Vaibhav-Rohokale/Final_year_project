@@ -9,6 +9,9 @@ import 'medical_record_page.dart';
 import 'monthly_report_page.dart';
 import '../data/government_schemes.dart';
 
+// Correct imports (DO NOT USE pages/pages/)
+import 'add_nutrition_page.dart';
+import 'nutrition_list_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,34 +29,35 @@ class _HomePageState extends State<HomePage> {
     {'icon': Icons.medical_services, 'title': 'Medical Record'},
     {'icon': Icons.local_drink, 'title': 'Milk Production & Quality'},
     {'icon': Icons.insert_chart, 'title': 'Monthly Report'},
+    {'icon': Icons.restaurant_menu, 'title': 'Add Nutrition'},
+    {'icon': Icons.food_bank, 'title': 'Nutrition Records'},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.shade50,
+      backgroundColor: const Color(0xFF0F0F0F),
+
       appBar: AppBar(
         title: const Text(
-          '🐾 Petnest',
+          '🐄 Livestock Manager',
           style: TextStyle(
-            fontFamily: 'Pacifico',
             fontSize: 26,
             fontWeight: FontWeight.bold,
             color: Colors.white,
             letterSpacing: 1.2,
           ),
         ),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        elevation: 10,
+        shadowColor: Colors.grey,
         centerTitle: true,
-        elevation: 6,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
-        ),
       ),
+
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // 🌟 FEATURE GRID
+            // ---------------- GRID MENU ----------------
             Padding(
               padding: const EdgeInsets.all(16),
               child: GridView.builder(
@@ -73,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                     onEnter: (_) => setState(() => hoveredIndex = index),
                     onExit: (_) => setState(() => hoveredIndex = -1),
                     child: AnimatedScale(
-                      scale: isHovered ? 1.05 : 1.0,
+                      scale: isHovered ? 1.08 : 1.0,
                       duration: const Duration(milliseconds: 200),
                       child: FadeInUp(
                         delay: Duration(milliseconds: 120 * index),
@@ -81,31 +85,36 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(20),
                           onTap: () {
                             if (feature['title'] == 'Add Animal') {
-                              Navigator.push(
-                                  context, _createRoute(const AddAnimalPage()));
-                            } else if (feature['title'] ==
-                                'Animal Profile') {
-                              Navigator.push(
-                                  context, _createRoute(const AnimalProfilePage()));
-                            } else if (feature['title'] ==
-                                'Medical Record') {
-                              Navigator.push(
-                                  context, _createRoute(const MedicalRecordPage()));
-                            } else if (feature['title'] ==
-                                'Milk Production & Quality') {
-                              Navigator.push(
-                                  context, _createRoute(const MilkProductionPage()));
+                              Navigator.push(context, _createRoute(const AddAnimalPage()));
+
+                            } else if (feature['title'] == 'Animal Profile') {
+                              Navigator.push(context, _createRoute(const AnimalProfilePage()));
+
+                            } else if (feature['title'] == 'Medical Record') {
+                              Navigator.push(context, _createRoute(const MedicalRecordPage()));
+
+                            } else if (feature['title'] == 'Milk Production & Quality') {
+                              Navigator.push(context, _createRoute(const MilkProductionPage()));
+
                             } else if (feature['title'] == 'Monthly Report') {
-                              Navigator.push(
-                                  context, _createRoute(const MonthlyReportPage()));
+                              Navigator.push(context, _createRoute(const MonthlyReportPage()));
+
+                            } else if (feature['title'] == 'Add Nutrition') {
+                              Navigator.push(context, _createRoute(const AddNutritionPage()));
+
+                            } else if (feature['title'] == 'Nutrition Records') {
+                              Navigator.push(context, _createRoute(const NutritionListPage()));
                             }
                           },
+
+                          // ---------------- MENU CARD ----------------
                           child: Container(
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
-                                  Colors.deepPurple.shade300,
-                                  Colors.deepPurple.shade500,
+                                  Colors.grey.shade900,
+                                  Colors.grey.shade800,
+                                  Colors.grey.shade700,
                                 ],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
@@ -113,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black26,
+                                  color: Colors.black.withOpacity(0.6),
                                   blurRadius: 8,
                                   offset: const Offset(0, 4),
                                 ),
@@ -122,16 +131,19 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(feature['icon'],
-                                    size: 50, color: Colors.white),
+                                Icon(
+                                  feature['icon'],
+                                  size: 50,
+                                  color: Colors.grey.shade200,
+                                ),
                                 const SizedBox(height: 10),
                                 Text(
                                   feature['title'],
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: 16,
+                                  style: TextStyle(
+                                    fontSize: 15,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                                    color: Colors.grey.shade200,
                                   ),
                                 ),
                               ],
@@ -145,7 +157,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
-            // 🌾 GOVERNMENT SCHEMES SECTION
+            // ---------------- GOVT SCHEMES ----------------
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -156,7 +168,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
-                    color: Colors.deepPurple.shade700,
+                    color: Colors.grey.shade300,
                   ),
                 ),
               ),
@@ -170,6 +182,7 @@ class _HomePageState extends State<HomePage> {
                 itemCount: GovernmentSchemes.schemes.length,
                 itemBuilder: (context, index) {
                   final scheme = GovernmentSchemes.schemes[index];
+
                   return FadeInRight(
                     delay: Duration(milliseconds: 100 * index),
                     child: Card(
@@ -184,8 +197,8 @@ class _HomePageState extends State<HomePage> {
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: [
-                              Colors.deepPurple.shade200,
-                              Colors.deepPurple.shade400,
+                              Colors.grey.shade800,
+                              Colors.grey.shade700,
                             ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
@@ -204,6 +217,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             const SizedBox(height: 8),
+
                             Expanded(
                               child: Text(
                                 scheme['description']!,
@@ -213,7 +227,9 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
+
                             const SizedBox(height: 8),
+
                             TextButton(
                               onPressed: () async {
                                 final url = Uri.parse(scheme['link']!);
@@ -245,16 +261,15 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// 👇 Smooth slide transition between pages
+  /// Page transition animation
   Route _createRoute(Widget page) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => page,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(1.0, 0.0);
         const end = Offset.zero;
-        const curve = Curves.ease;
-        final tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        final tween = Tween(begin: begin, end: end);
+
         return SlideTransition(
           position: animation.drive(tween),
           child: child,

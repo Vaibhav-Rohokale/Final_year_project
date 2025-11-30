@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
-import 'splash_page.dart'; // make sure this matches the location of your file
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'splash_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const PetnestApp());
 }
 

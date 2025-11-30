@@ -37,13 +37,13 @@ class _AddAnimalPageState extends State<AddAnimalPage> {
       lastDate: DateTime.now(),
       builder: (context, child) {
         return Theme(
-          data: ThemeData.light().copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: Colors.deepPurple,
-              onPrimary: Colors.white,
-              onSurface: Colors.deepPurple,
+          data: ThemeData.dark().copyWith(
+            colorScheme: const ColorScheme.dark(
+              primary: Colors.cyanAccent,
+              onPrimary: Colors.black,
+              onSurface: Colors.white,
             ),
-            dialogBackgroundColor: Colors.white,
+            dialogBackgroundColor: Colors.grey.shade900,
           ),
           child: child!,
         );
@@ -96,94 +96,109 @@ class _AddAnimalPageState extends State<AddAnimalPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Animal'),
-        backgroundColor: Colors.deepPurple,
-        elevation: 4,
+        title: const Text('Add Animal',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.black,
+        elevation: 6,
+        shadowColor: Colors.cyanAccent,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
       ),
-      backgroundColor: Colors.blue.shade50,
+
+      backgroundColor: Colors.grey.shade900,
+
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            // 🐾 Profile Image
             GestureDetector(
               onTap: _pickImage,
               child: CircleAvatar(
                 radius: 55,
-                backgroundColor: Colors.deepPurple.shade100,
+                backgroundColor: Colors.grey.shade800,
                 backgroundImage: _image != null ? FileImage(_image!) : null,
                 child: _image == null
                     ? const Icon(Icons.add_a_photo,
-                        size: 35, color: Colors.deepPurple)
+                        size: 35, color: Colors.cyanAccent)
                     : null,
               ),
             ),
             const SizedBox(height: 20),
 
-            // 🐶 Name
             _buildTextField('Animal Name', nameController, Icons.pets),
             const SizedBox(height: 15),
 
-            // 🐄 Breed
             _buildTextField('Breed', breedController, Icons.badge),
             const SizedBox(height: 15),
 
-            // 🚻 Gender Dropdown
             Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.grey.shade900,
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 5,
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 6,
                     offset: const Offset(0, 3),
                   ),
                 ],
               ),
               child: DropdownButtonFormField<String>(
+                style: const TextStyle(color: Colors.white),
+                dropdownColor: Colors.grey.shade900,
                 value: selectedGender,
                 decoration: InputDecoration(
                   labelText: 'Gender',
-                  prefixIcon: const Icon(Icons.transgender, color: Colors.deepPurple),
+                  labelStyle: const TextStyle(color: Colors.white70),
+                  prefixIcon:
+                      const Icon(Icons.transgender, color: Colors.cyanAccent),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
                   ),
                 ),
                 items: const [
-                  DropdownMenuItem(value: 'Male', child: Text('Male')),
-                  DropdownMenuItem(value: 'Female', child: Text('Female')),
+                  DropdownMenuItem(
+                      value: 'Male',
+                      child: Text('Male', style: TextStyle(color: Colors.white))),
+                  DropdownMenuItem(
+                      value: 'Female',
+                      child: Text('Female', style: TextStyle(color: Colors.white))),
                 ],
                 onChanged: (value) {
                   setState(() => selectedGender = value);
                 },
               ),
             ),
+
             const SizedBox(height: 15),
 
-            // 📅 Date Picker
             TextField(
               controller: birthController,
               readOnly: true,
+              style: const TextStyle(color: Colors.white),
               onTap: _pickDate,
               decoration: InputDecoration(
                 labelText: 'Date of Birth',
-                prefixIcon: const Icon(Icons.calendar_today, color: Colors.deepPurple),
+                labelStyle: const TextStyle(color: Colors.white70),
+                prefixIcon:
+                    const Icon(Icons.calendar_today, color: Colors.cyanAccent),
+                filled: true,
+                fillColor: Colors.grey.shade900,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),
+
             const SizedBox(height: 30),
 
-            // 💾 Save Button
             ElevatedButton.icon(
               onPressed: _saveAnimal,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepPurple,
+                backgroundColor: Colors.cyanAccent,
+                foregroundColor: Colors.black,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
                 shape: RoundedRectangleBorder(
@@ -191,10 +206,10 @@ class _AddAnimalPageState extends State<AddAnimalPage> {
                 ),
                 elevation: 5,
               ),
-              icon: const Icon(Icons.save, color: Colors.white),
+              icon: const Icon(Icons.save),
               label: const Text(
                 'Save',
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
           ],
@@ -207,26 +222,26 @@ class _AddAnimalPageState extends State<AddAnimalPage> {
       String label, TextEditingController controller, IconData icon) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.grey.shade900,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black12,
-            blurRadius: 5,
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 6,
             offset: const Offset(0, 3),
           ),
         ],
       ),
       child: TextField(
         controller: controller,
+        style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           labelText: label,
-          prefixIcon: Icon(icon, color: Colors.deepPurple),
+          labelStyle: const TextStyle(color: Colors.white70),
+          prefixIcon: Icon(icon, color: Colors.cyanAccent),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-          ),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.deepPurple, width: 2),
+            borderSide: BorderSide.none,
           ),
         ),
       ),

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "257337623722",
+    "project_id": "petapp-99fad",
+    "storage_bucket": "petapp-99fad.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257337623722:android:54039404ccd2fe99c03cd3",
+        "android_client_info": {
+          "package_name": "com.example.livestock_record_app_new"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2DfScBosJSjKPpykso-1gMt7bPiiksjI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

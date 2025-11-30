@@ -18,7 +18,6 @@ class _SplashPageState extends State<SplashPage>
   void initState() {
     super.initState();
 
-    // 👇 Initialize animation immediately
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1200),
@@ -28,7 +27,6 @@ class _SplashPageState extends State<SplashPage>
       CurvedAnimation(parent: _controller, curve: Curves.elasticOut),
     );
 
-    // 👇 Navigate to AuthPage after animation finishes
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,

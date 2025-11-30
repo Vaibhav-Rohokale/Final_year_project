@@ -12,6 +12,7 @@ class MedicalRecordPage extends StatefulWidget {
 
 class _MedicalRecordPageState extends State<MedicalRecordPage> {
   String? selectedAnimal;
+
   final TextEditingController diseaseController = TextEditingController();
   final TextEditingController treatmentController = TextEditingController();
   final TextEditingController vaccinationController = TextEditingController();
@@ -22,58 +23,72 @@ class _MedicalRecordPageState extends State<MedicalRecordPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('🐮 Medical Record'),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.black,
+        elevation: 0,
         actions: [
           IconButton(
-            icon: const Icon(Icons.list),
+            icon: const Icon(Icons.list, color: Colors.white),
             tooltip: "View All Records",
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const MedicalRecordListPage()),
+                  builder: (context) => const MedicalRecordListPage(),
+                ),
               );
             },
           ),
         ],
       ),
-      backgroundColor: Colors.blue.shade50,
+
+      // Background Dark Theme
+      backgroundColor: Colors.grey.shade900,
+
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Card(
             elevation: 8,
+            color: Colors.grey.shade800,
+            shadowColor: Colors.black,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
+
             child: Padding(
               padding: const EdgeInsets.all(20),
+
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
                     "Select Animal",
                     style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.deepPurple),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                   const SizedBox(height: 10),
+
+                  // Animal Dropdown
                   DropdownButtonFormField<String>(
+                    dropdownColor: Colors.grey.shade800,
+                    value: selectedAnimal,
+                    style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Colors.white,
+                      fillColor: Colors.grey.shade700,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    value: selectedAnimal,
-                    hint: const Text("Choose Animal"),
+                    hint: const Text("Choose Animal", style: TextStyle(color: Colors.white70)),
                     items: AnimalData.animals
                         .map(
                           (animal) => DropdownMenuItem<String>(
                             value: animal['name'],
-                            child: Text(animal['name']),
+                            child: Text(animal['name'], style: const TextStyle(color: Colors.white)),
                           ),
                         )
                         .toList(),
@@ -83,15 +98,23 @@ class _MedicalRecordPageState extends State<MedicalRecordPage> {
                       });
                     },
                   ),
+
                   const SizedBox(height: 20),
+
                   _buildTextField("Disease History", diseaseController),
                   const SizedBox(height: 15),
+
                   _buildTextField("Treatments Given", treatmentController),
                   const SizedBox(height: 15),
+
                   _buildTextField("Vaccination Details", vaccinationController),
                   const SizedBox(height: 15),
+
                   _buildTextField("Health Status", healthStatusController),
+
                   const SizedBox(height: 25),
+
+                  // Save Button
                   Center(
                     child: ElevatedButton.icon(
                       onPressed: _saveRecord,
@@ -101,9 +124,8 @@ class _MedicalRecordPageState extends State<MedicalRecordPage> {
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepPurple,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 40, vertical: 15),
+                        backgroundColor: Colors.black,
+                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -119,6 +141,7 @@ class _MedicalRecordPageState extends State<MedicalRecordPage> {
     );
   }
 
+  // Save Function
   void _saveRecord() {
     if (selectedAnimal == null ||
         diseaseController.text.isEmpty ||
@@ -155,19 +178,22 @@ class _MedicalRecordPageState extends State<MedicalRecordPage> {
     );
   }
 
+  // Dark Theme Input Field
   Widget _buildTextField(String label, TextEditingController controller) {
     return TextField(
       controller: controller,
       maxLines: 2,
+      style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         labelText: label,
+        labelStyle: const TextStyle(color: Colors.white70),
         filled: true,
-        fillColor: Colors.white,
+        fillColor: Colors.grey.shade700,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
         ),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.deepPurple, width: 2),
+          borderSide: BorderSide(color: Colors.white, width: 2),
         ),
       ),
     );

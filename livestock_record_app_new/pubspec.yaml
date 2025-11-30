@@ -11,11 +11,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  firebase_core: ^2.24.2   # <-- add this line
+
   animated_text_kit: ^4.2.2
   animate_do: ^3.1.2
   image_picker: ^1.1.2
   intl: ^0.19.0
   url_launcher: ^6.3.0
+  firebase_auth: ^4.16.0
+  cloud_firestore: ^4.17.5
+  firebase_storage: ^11.6.5
 
 
 
